@@ -152,14 +152,3 @@ The automated Python script exports a structured multi-tab Excel workbook:
    ```
 
 ---
-
-## 📝 Resume Bullet Points (Copy & Paste Ready)
-
-**Customer Cohort Retention & RFM Segmentation Analysis**  
-*Customer Analytics / E-Commerce*
-
-- **Architected an end-to-end customer analytics pipeline** using Python to simulate 5,000+ customer profiles and 16,000+ e-commerce transactions across a 12-month timeframe.
-- **Queried relational database structures using PostgreSQL** CTEs, `DATE_TRUNC`, and `MIN() OVER` Window Functions to calculate monthly cohort retention matrices.
-- **Engineered an RFM segmentation model using `NTILE(5)` quintile scoring**, classifying users into 6 strategic segments (*Champions*, *Loyal*, *At-Risk*, *Lost*) to drive targeted retention strategies.
-- **Exported executive-ready Excel workbooks (`Cohort_RFM_Report.xlsx`)**, incorporating dynamic pivot-style retention heatmaps and high-level KPI scorecards for non-technical leadership.
-- **Tech Stack:** Python, SQL (PostgreSQL / SQLite), Pandas, NumPy, Matplotlib, Excel (Pivot Tables, Conditional Formatting)
