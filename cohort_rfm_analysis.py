@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import os
+import matplotlib.pyplot as plt
 
 def run_analysis():
     print("Step 1: Loading raw CSV data into SQLite database...")
@@ -104,7 +105,50 @@ def run_analysis():
         segment_summary.to_excel(writer, sheet_name='RFM Segmentation Summary', index=False)
         rfm.to_excel(writer, sheet_name='Customer RFM Scores', index=False)
 
-    print("Analysis completed successfully! Output saved to 'Cohort_RFM_Report.xlsx'.")
+    print("Step 5: Generating visual charts with Matplotlib...")
+    
+    # Chart 1: Cohort Retention Matrix Heatmap
+    plt.figure(figsize=(12, 7))
+    matrix_data = cohort_matrix.values
+    plt.imshow(matrix_data, cmap='YlGnBu', aspect='auto')
+    
+    # Annotate percentage numbers inside heatmap cells
+    for i in range(matrix_data.shape[0]):
+        for j in range(matrix_data.shape[1]):
+            val = matrix_data[i, j]
+            if not np.isnan(val):
+                text_color = 'white' if val > 50 else 'black'
+                plt.text(j, i, f"{val:.1f}%", ha='center', va='center', color=text_color, fontsize=8, fontweight='bold')
+                
+    plt.title('Monthly Customer Cohort Retention Rate (%)', fontsize=14, fontweight='bold', pad=15)
+    plt.xlabel('Months Since Initial Purchase', fontsize=11, labelpad=10)
+    plt.ylabel('Cohort Month', fontsize=11, labelpad=10)
+    plt.xticks(ticks=range(cohort_matrix.shape[1]), labels=cohort_matrix.columns)
+    plt.yticks(ticks=range(len(cohort_matrix.index)), labels=[str(m) for m in cohort_matrix.index])
+    plt.colorbar(label='Retention Rate (%)')
+    plt.tight_layout()
+    plt.savefig('cohort_retention_heatmap.png', dpi=300)
+    plt.close()
+
+    # Chart 2: RFM Customer Segment Breakdown Bar Chart
+    plt.figure(figsize=(10, 5))
+    bars = plt.barh(segment_summary['customer_segment'], segment_summary['customer_count'], color='#2b5c8f')
+    plt.title('Customer Distribution by RFM Segment', fontsize=14, fontweight='bold', pad=15)
+    plt.xlabel('Number of Customers', fontsize=11)
+    plt.ylabel('Customer Segment', fontsize=11)
+    plt.gca().invert_yaxis()
+    
+    # Add count labels next to bars
+    for bar in bars:
+        width = bar.get_width()
+        plt.text(width + (total_cust * 0.01), bar.get_y() + bar.get_height()/2, f"{int(width):,}", ha='left', va='center', fontsize=9, fontweight='bold')
+        
+    plt.tight_layout()
+    plt.savefig('rfm_segment_distribution.png', dpi=300)
+    plt.close()
+
+    print("Analysis completed successfully! Outputs saved to 'Cohort_RFM_Report.xlsx', 'cohort_retention_heatmap.png', and 'rfm_segment_distribution.png'.")
 
 if __name__ == '__main__':
     run_analysis()
+

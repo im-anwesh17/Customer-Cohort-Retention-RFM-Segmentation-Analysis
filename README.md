@@ -10,6 +10,7 @@ Instead of relying on static CSV reports, this repository implements a complete 
 ## 🛠️ Tech Stack & Key Skills
 - **Data Engineering & Simulation:** Python (`pandas`, `numpy`, `random`)
 - **Database & Query Optimization:** SQL (PostgreSQL syntax, CTEs, Window Functions `NTILE`, `DATE_TRUNC`, `MIN() OVER`)
+- **Data Visualization & Analytics:** Matplotlib (`matplotlib.pyplot`, custom heatmap matrix, segment distribution charts)
 - **Business Intelligence & Reporting:** Excel (`openpyxl`, Pivot-style summaries, Conditional Formatting, KPI Scorecards)
 - **Environment:** Windows / WSL Python 3.12
 
@@ -113,7 +114,17 @@ ORDER BY total_revenue DESC;
 
 ---
 
-## 📊 Executive Excel Report (`Cohort_RFM_Report.xlsx`)
+## 📊 Visualizations & Executive Reports
+
+### 1. Cohort Retention Heatmap (`Matplotlib`)
+Plots retention rate percentages across monthly customer acquisition cohorts:
+![Cohort Retention Heatmap](cohort_retention_heatmap.png)
+
+### 2. RFM Customer Segment Distribution (`Matplotlib`)
+Visualizes customer volume across calculated RFM segment categories:
+![RFM Segment Distribution](rfm_segment_distribution.png)
+
+### 3. Executive Excel Report (`Cohort_RFM_Report.xlsx`)
 The automated Python script exports a structured multi-tab Excel workbook:
 1. **Executive Summary:** Core business KPI cards (Total Revenue, Active Customers, Avg Month-1 Retention Rate).
 2. **Cohort Retention Matrix (%):** Pivot-style retention matrix tracking cohort decay from Month 0 to Month 11.
@@ -151,4 +162,4 @@ The automated Python script exports a structured multi-tab Excel workbook:
 - **Queried relational database structures using PostgreSQL** CTEs, `DATE_TRUNC`, and `MIN() OVER` Window Functions to calculate monthly cohort retention matrices.
 - **Engineered an RFM segmentation model using `NTILE(5)` quintile scoring**, classifying users into 6 strategic segments (*Champions*, *Loyal*, *At-Risk*, *Lost*) to drive targeted retention strategies.
 - **Exported executive-ready Excel workbooks (`Cohort_RFM_Report.xlsx`)**, incorporating dynamic pivot-style retention heatmaps and high-level KPI scorecards for non-technical leadership.
-- **Tech Stack:** Python, SQL (PostgreSQL / SQLite), Pandas, NumPy, Excel (Pivot Tables, Conditional Formatting)
+- **Tech Stack:** Python, SQL (PostgreSQL / SQLite), Pandas, NumPy, Matplotlib, Excel (Pivot Tables, Conditional Formatting)
